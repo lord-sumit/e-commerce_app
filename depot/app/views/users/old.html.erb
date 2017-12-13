@@ -1,5 +1,5 @@
 <p class="font-weight-bold h1 col-4 offset-5">Depot User</p>
-<%= form_for @user, as: :user, url: sessions_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4" } do |form| %>
+<form class="col-4 offset-4 border border-primary pl-4 pt-4"><%= form_with scope: :user, url: users_path, local: true do |form| %>
 
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -30,7 +30,7 @@
     <%= form.submit "Login",:class => "p-3 mb-2 bg-success text-white"%>
   </p>
 <% end %>
-
+</form>
 <p class="col-4 offset-5">
   <p class="h6 font-weight-bold">New to Depot?</p>
   <%= link_to '<button type="button" class="btn btn-danger btn-lg">Sign up</button>'.html_safe, new_user_path %>
