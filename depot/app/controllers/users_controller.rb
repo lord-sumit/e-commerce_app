@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
-
+before_action :validate_admin ,except: [:index, :show]
   def index
     @users = User.all
+  end
+
+  def old
+    @user = User.new
   end
 
   def show
@@ -20,6 +24,7 @@ class UsersController < ApplicationController
     #render plain: params[:user].inspect
     @user = User.new(user_params)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to @user
     else
       render 'new'
@@ -36,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find_by(params[:id])
     @user.destroy
     redirect_to users_path
   end
@@ -44,5 +49,11 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:email, :password)
+    end
+
+    def validate_admin
+      unless current_user.admin?
+        redirect_to users_path, notice: "access denied only admin can see"
+      end
     end
 end
