@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to users_path
     else
-      redirect_to login_url, alert: "Invalid user/password combination"
+      redirect_to new_session_path, alert: "Invalid user/password combination"
     end
   end
 

@@ -1,0 +1,43 @@
+<p class="font-weight-bold h4 col-4 offset-4">Update the product details</p>
+<%= form_for @product,as: :product, url: product_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4 bg-info text-warning" }, local: true do |form| %>
+   <% if @product.errors.any? %>
+     <div id="error_explanation">
+       <h2>
+         <%= pluralize(@user.errors.count, "error") %> prohibited
+         this article from being saved:
+       </h2>
+       <ul>
+         <% @product.errors.full_messages.each do |msg| %>
+           <li><%= msg %></li>
+         <% end %>
+       </ul>
+     </div>
+   <% end %>
+   <p>
+     <p class="h5 font-weight-bold"><%= form.label :Name %><br></p>
+     <%= form.text_field :name%>
+   </p>
+   <p>
+     <p class="h5 font-weight-bold"><%= form.label :Color %><br></p>
+     <%= form.text_field :color %>
+   </p>
+
+   <p>
+     <p class="h5 font-weight-bold"><%= form.label :Price %><br></p>
+     <%= form.text_field :price %>
+   </p>
+
+   <p>
+     <p class="h5 font-weight-bold"><%= form.label :Discount %><br></p>
+     <%= form.text_field :discount %>
+   </p>
+
+   <p>
+     <p class="h5 font-weight-bold"><%= form.label :Description %><br></p>
+     <%= form.text_field :description %>
+   </p>
+
+   <p>
+     <%= form.submit "Update"%>
+   </p>
+<% end %>

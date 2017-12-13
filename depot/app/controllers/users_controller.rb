@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-before_action :validate_admin ,except: [:index, :show]
+  before_action :validate_admin, only: :show
+  before_action :validate_super_admin, except: [:index, :show]
+
   def index
     @users = User.all
   end
@@ -54,6 +56,12 @@ before_action :validate_admin ,except: [:index, :show]
     def validate_admin
       unless current_user.admin?
         redirect_to users_path, notice: "access denied only admin can see"
+      end
+    end
+
+    def validate_super_admin
+      unless current_user.super_admin?
+        redirect_to users_path, notice: "access denied"
       end
     end
 end
