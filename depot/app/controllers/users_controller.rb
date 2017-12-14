@@ -6,12 +6,8 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def old
-    @user = User.new
-  end
-
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(params[:id])
   end
 
   def new
@@ -27,6 +23,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
+        #if it is run then user_id is my previous id which is not change
+        #but my session id is change due to which authorisation is not run.
       redirect_to @user
     else
       render 'new'
@@ -34,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find_by(params[:id])
     if @user.update(user_params)
       redirect_to @user
     else
@@ -43,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     redirect_to users_path
   end

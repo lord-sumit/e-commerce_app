@@ -36,6 +36,7 @@ class ProductsController < ApplicationController
     @product.destroy
     redirect_to @products
   end
+
   private
     def product_params
       params.require(:product)
