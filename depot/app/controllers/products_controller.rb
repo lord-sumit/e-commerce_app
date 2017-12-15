@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :validate_admin, except: [:show, :index]
 
   def index
     @products = Product.all
@@ -41,6 +42,12 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product)
         .permit(:name, :color, :price, :discount, :description)
+    end
+
+    def validate_admin
+      unless current_user.admin?
+        redirect_to products_path, notice: "access denied only admin can see"
+      end
     end
 
 end

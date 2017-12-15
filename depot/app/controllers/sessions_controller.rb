@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
   def create
     if @user.password.eql? params[:user][:password]
       session[:user_id] = @user.id
-      redirect_to users_path
+      redirect_to products_path
     else
       redirect_to new_session_path, alert: "Invalid user/password combination"
     end
