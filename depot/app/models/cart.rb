@@ -1,6 +1,7 @@
 class Cart < ApplicationRecord
   belongs_to :user
-  has_many :line_items
+  validates :user, presence: true
+  has_many :line_items, inverse_of: :cart
   has_many :products, through: :line_items
   scope :completed, -> { where(completed: true) }
   scope :uncompleted, -> { where(completed: false) }

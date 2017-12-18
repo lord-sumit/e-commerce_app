@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :validate_admin, only: :show
-  before_action :validate_super_admin, except: [:index, :show]
-
+  before_action :validate_super_admin, except: [:index, :show, :new, :create]
+  skip_before_action :authorize, only: [:new, :create]
   def index
     @users = User.all
   end
@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    #render plain: params[:user].inspect
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id

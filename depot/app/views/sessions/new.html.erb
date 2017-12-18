@@ -1,6 +1,7 @@
 <p class="font-weight-bold h1 col-4 offset-5">Depot User</p>
 <%= form_for @user, as: :user, url: sessions_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4" } do |form| %>
   <%= csrf_meta_tag %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -20,12 +21,10 @@
     <p class="h6 font-weight-bold "><%= form.label :Email %><br></p>
     <%= form.text_field :email, :value => "email"%>
   </p>
-
   <p>
     <p class="h6 font-weight-bold"><%= form.label :Password %><br></p>
     <%= form.text_field :password %>
   </p>
-
   <p>
     <%= form.submit "Login",:class => "p-3 mb-2 bg-success text-white"%>
   </p>

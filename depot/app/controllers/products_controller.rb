@@ -57,8 +57,8 @@ class ProductsController < ApplicationController
 
   private
     def product_params
-      params.require(:product)
-        .permit(:name, :color, :price, :discount, :description)
+      params.require(:product).
+        permit(:name, :color, :price, :discount, :description)
     end
 
     def validate_admin
