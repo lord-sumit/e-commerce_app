@@ -1,3 +1,9 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img src="ecommerce_logo.png" class="col-md-2 m-1 p-0">
+  <span class = "col-md-2 m-1 p-0"><%= link_to 'New Product', new_product_path
+   %></span>
+  <button class="btn btn-outline-success col-md-1 offset-md-13 m-1 p-0" type="button">Login</button>
+</nav>
 <p>All Products</p>
 <table>
   <tr>
@@ -16,10 +22,12 @@
       <td><%= product.description%></td>
       <td><%= link_to 'Show', product_path(product) %></td>
       <td><%= link_to 'Edit', edit_product_path(product) %></td>
-      <td><%= link_to 'destroy', product_path(product),
+      <td><%= link_to 'Destroy', product_path(product),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
-
+      <td><%= link_to 'Add_To_Cart', product_add_to_cart_path(product),
+              method: :patch %></td>
+      <td><%= link_to 'Remove_From_Cart', product_remove_from_cart_path(product)      , method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
