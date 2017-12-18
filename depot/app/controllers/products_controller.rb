@@ -1,10 +1,11 @@
 class ProductsController < ApplicationController
-    before_action :validate_admin, except: [:show, :index]
-    # before_action :load_product, only: [:add_to_cart, ]
+  before_action :validate_admin, except: [:show, :index]
+  # before_action :load_product, only: [:add_to_cart, ]
+
   def add_to_cart
-    @cart = current_user.carts.find_or_create_by(completed: false)
-    @line_item = @cart.line_items.find_or_create_by(product_id: params[:product_id])
-    @line_item.update quantity: @line_item.quantity + 1
+    cart = current_user.carts.find_or_create_by(completed: false)
+    line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
+    line_item.update quantity: line_item.quantity + 1
   end
 
   def remove_from_cart
@@ -13,7 +14,7 @@ class ProductsController < ApplicationController
     if @line_item.quantity > 1
       @line_item.update quantity: @line_item.quantity - 1
     else
-      Cart.find_by_id(@line_item.cart_id)
+      Cart.find_by_id(@line_item.cart_id).destroy
       @line_item.destroy
     end
   end
