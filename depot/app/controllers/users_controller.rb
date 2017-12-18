@@ -1,15 +1,13 @@
 class UsersController < ApplicationController
-before_action :validate_admin ,except: [:index, :show]
+  before_action :validate_admin, only: :show
+  before_action :validate_super_admin, except: [:index, :show]
+
   def index
     @users = User.all
   end
 
-  def old
-    @user = User.new
-  end
-
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(params[:id])
   end
 
   def new
@@ -25,6 +23,8 @@ before_action :validate_admin ,except: [:index, :show]
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
+        #if it is run then user_id is my previous id which is not change
+        #but my session id is change due to which authorisation is not run.
       redirect_to @user
     else
       render 'new'
@@ -32,7 +32,7 @@ before_action :validate_admin ,except: [:index, :show]
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find_by(params[:id])
     if @user.update(user_params)
       redirect_to @user
     else
@@ -41,7 +41,7 @@ before_action :validate_admin ,except: [:index, :show]
   end
 
   def destroy
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     redirect_to users_path
   end
@@ -54,6 +54,12 @@ before_action :validate_admin ,except: [:index, :show]
     def validate_admin
       unless current_user.admin?
         redirect_to users_path, notice: "access denied only admin can see"
+      end
+    end
+
+    def validate_super_admin
+      unless current_user.super_admin?
+        redirect_to users_path, notice: "access denied"
       end
     end
 end

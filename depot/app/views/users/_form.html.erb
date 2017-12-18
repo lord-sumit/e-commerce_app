@@ -1,4 +1,5 @@
 <%= form_with scope: :user, url: users_path, local: true do |form| %>
+
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -12,6 +13,11 @@
       </ul>
     </div>
   <% end %>
+
+  <p>
+    <p class="h6 font-weight-bold "><%= form.label :UserName %><br></p>
+    <%= form.text_field :user_name%>
+  </p>
   <p>
     <p class="h5 font-weight-bold"><%= form.label :Email %><br></p>
     <%= form.text_field :email, :value => "email"%>
@@ -21,8 +27,16 @@
     <p class="h5 font-weight-bold"><%= form.label :Password %><br></p>
     <%= form.text_field :password %>
   </p>
-
+  <p>
+    <p class="h6 font-weight-bold "><%= form.label :Admin %><br></p>
+    <%= form.check_box :admin%>
+  </p>
+  <p>
+    <p class="h6 font-weight-bold "><%= form.label :SuperAdmin %><br></p>
+    <%= form.check_box :super_admin%>
+  </p>
   <p>
     <%= form.submit %>
   </p>
+
 <% end %>

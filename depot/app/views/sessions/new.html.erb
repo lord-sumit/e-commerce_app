@@ -1,6 +1,6 @@
 <p class="font-weight-bold h1 col-4 offset-5">Depot User</p>
 <%= form_for @user, as: :user, url: sessions_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4" } do |form| %>
-
+  <%= csrf_meta_tag %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
