@@ -1,12 +1,29 @@
 class ProductsController < ApplicationController
-  before_action :validate_admin, except: [:show, :index]
+    before_action :validate_admin, except: [:show, :index]
+    # before_action :load_product, only: [:add_to_cart, ]
+  def add_to_cart
+    @cart = current_user.carts.find_or_create_by(completed: false)
+    @line_item = @cart.line_items.find_or_create_by(product_id: params[:product_id])
+    @line_item.update quantity: @line_item.quantity + 1
+  end
+
+  def remove_from_cart
+    @line_item = current_user.carts.find_by(completed: 'false').
+      line_items.find_by(product_id: params[:product_id])
+    if @line_item.quantity > 1
+      @line_item.update quantity: @line_item.quantity - 1
+    else
+      Cart.find_by_id(@line_item.cart_id)
+      @line_item.destroy
+    end
+  end
 
   def index
     @products = Product.all
   end
 
   def show
-    @product = Product.find_by(params[:id])
+    @product = Product.find(params[:id])
   end
 
   def new
@@ -14,7 +31,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find_by(params[:id])
+    @product = Product.find(params[:id])
   end
 
   def create
@@ -33,9 +50,9 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find_by(params[:id])
+    @product = Product.find(params[:id])
     @product.destroy
-    redirect_to @products
+    redirect_to products_path
   end
 
   private

@@ -5,5 +5,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   resources 'users'
   resources 'sessions'
-  resources 'products'
+  resources 'products' do
+    get 'add_to_cart'
+    delete 'remove_from_cart'
+  end
+  resources 'carts'
 end
