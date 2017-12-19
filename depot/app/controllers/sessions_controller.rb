@@ -25,4 +25,5 @@ class SessionsController < ApplicationController
       @user = User.find_by(email: params[:user][:email])
       redirect_to new_session_path unless @user
     end
+
 end

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :validate_admin, only: :show
   before_action :validate_super_admin, except: [:index, :show, :new, :create]
   skip_before_action :authorize, only: [:new, :create]
+
   def index
     @users = User.all
   end
@@ -40,8 +41,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    user = User.find(params[:id])
+    user.destroy
     redirect_to users_path
   end
 

@@ -1,20 +1,22 @@
 class ProductsController < ApplicationController
-    before_action :validate_admin, except: [:show, :index]
-    # before_action :load_product, only: [:add_to_cart, ]
+  before_action :validate_admin, except: [:show, :index]
+
   def add_to_cart
-    @cart = current_user.carts.find_or_create_by(completed: false)
-    @line_item = @cart.line_items.find_or_create_by(product_id: params[:product_id])
-    @line_item.update quantity: @line_item.quantity + 1
+    cart = current_user.carts.find_or_create_by(completed: false)
+    line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
+    line_item.update quantity: line_item.quantity + 1
   end
 
   def remove_from_cart
-    @line_item = current_user.carts.find_by(completed: 'false').
-      line_items.find_by(product_id: params[:product_id])
-    if @line_item.quantity > 1
-      @line_item.update quantity: @line_item.quantity - 1
+    carts = current_user.carts.find_by(completed: 'false')
+    line_item = carts.line_items.find_by(product_id: params[:product_id])
+    if line_item.quantity > 1
+      line_item.update quantity: line_item.quantity - 1
     else
-      Cart.find_by_id(@line_item.cart_id)
-      @line_item.destroy
+      line_item.destroy
+      if carts.line_item_ids.length < 2
+        carts.destroy
+      end
     end
   end
 
@@ -23,6 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    debugger
     @product = Product.find(params[:id])
   end
 
@@ -37,7 +40,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.save
-    redirect_to @product
+    render @product
   end
 
   def update
@@ -50,8 +53,8 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    @product.destroy
+    product = Product.find(params[:id])
+    product.destroy
     redirect_to products_path
   end
 
