@@ -1,7 +1,8 @@
 class CartsController < ApplicationController
 
   def show
-    @cart = Cart.find(params[:id])
+    debugger
+    @carts = params[:id].carts.select("id")
   end
 
 end

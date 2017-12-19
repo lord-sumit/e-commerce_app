@@ -1,0 +1,30 @@
+<% carts.each do |cart_id| %>
+  <% cart_id.line_items.select("id") do |product| %>
+    <p>
+      <p class="h5 font-weight-bold">Name<br>
+      </p>
+      <%= product.name %>
+    </p>
+    <p>
+      <p class="h5 font-weight-bold">Color<br>
+      </p>
+      <%= product.color %>
+    </p>
+    <p>
+      <p class="h5 font-weight-bold">Price<br>
+      </p>
+      <%= product.price %>
+    </p>
+    <p>
+      <p class="h5 font-weight-bold">Discount<br>
+      </p>
+      <%= product.discount %>
+    </p>
+    <p>
+      <p class="h5 font-weight-bold">Description<br>
+      </p>
+      <%= product.description %>
+    </p>
+  <% end %>
+<% end %>
+<%= link_to "Back", products_path %>

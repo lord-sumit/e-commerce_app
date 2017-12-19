@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources 'users'
   resources 'sessions'
   resources 'products' do
-    get 'add_to_cart'
+    patch 'add_to_cart'
     delete 'remove_from_cart'
   end
   resources 'carts'

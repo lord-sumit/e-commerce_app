@@ -2,6 +2,7 @@
   <img src="ecommerce_logo.png" class="col-md-2 m-1 p-0">
   <span class = "col-md-2 m-1 p-0"><%= link_to 'New Product', new_product_path
    %></span>
+  <span class = "col-md-2 m-1 p-0"><%= link_to 'Your Cart', cart_path(@current_user.carts.where(completed: false).select("id")) %></span>
   <button class="btn btn-outline-success col-md-1 offset-md-13 m-1 p-0" type="button">Login</button>
 </nav>
 <p>All Products</p>
