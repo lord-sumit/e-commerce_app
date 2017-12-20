@@ -3,7 +3,8 @@ class ProductsController < ApplicationController
 
   def add_to_cart
     cart = current_user.carts.find_or_create_by(completed: false)
-    line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
+    line_item = cart.line_items.
+      find_or_create_by(product_id: params[:product_id])
     line_item.update quantity: line_item.quantity + 1
   end
 
@@ -25,7 +26,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    debugger
     @product = Product.find(params[:id])
   end
 

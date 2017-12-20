@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171217033247) do
+ActiveRecord::Schema.define(version: 20171220092803) do
 
   create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean "completed", default: false
@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 20171217033247) do
     t.string "username"
     t.string "email"
     t.string "password"
-    t.boolean "admin", default: false
-    t.boolean "super_admin", default: false
   end
 
   add_foreign_key "carts", "users"
