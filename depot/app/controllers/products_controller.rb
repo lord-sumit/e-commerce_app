@@ -1,12 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :validate_admin, except: [:show, :index]
+  before_action :validate_admin, except: [:show, :index, :add_to_cart]
 
-  def add_to_cart
-    cart = current_user.carts.find_or_create_by(completed: false)
-    line_item = cart.line_items.
-      find_or_create_by(product_id: params[:product_id])
-    line_item.update quantity: line_item.quantity + 1
-  end
 
   def remove_from_cart
     carts = current_user.carts.find_by(completed: 'false')
@@ -14,15 +8,24 @@ class ProductsController < ApplicationController
     if line_item.quantity > 1
       line_item.update quantity: line_item.quantity - 1
     else
-      line_item.destroy
       if carts.line_item_ids.length < 2
         carts.destroy
       end
+      line_item.destroy
     end
   end
 
   def index
     @products = Product.all
+  end
+
+  def add_to_cart
+    cart = current_user.carts.find_or_create_by(completed: false)
+    line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
+    line_item.update quantity: line_item.quantity + 1
+    # respond_to do |format|
+    #   format.json { render json: @add_to_cart }
+    # end
   end
 
   def show
@@ -40,7 +43,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.save
-    render @product
+    redirect_to @product
   end
 
   def update

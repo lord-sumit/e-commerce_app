@@ -22,4 +22,5 @@
   <p class="h5 font-weight-bold">Description<br></p>
   <%= @product.description %>
 </p>
+<%= link_to image_tag(@product.image.url(:small)), @product.image.url %>
 <%= link_to "Back", products_path %>

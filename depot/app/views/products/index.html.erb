@@ -28,8 +28,8 @@
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
       <td><%= link_to 'Add_To_Cart', product_add_to_cart_path(product),
-              method: :patch %></td>
-      <td><%= link_to 'Remove_From_Cart', product_remove_from_cart_path(product)      , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              method: :patch, remote: true %></td>
+      <td><%= link_to 'Remove_From_Cart', product_remove_from_cart_path(product)      , class:"a", method: :delete, data: { confirm: 'Are you sure?', remote: true } %></td>
     </tr>
   <% end %>
 </table>
