@@ -1,19 +1,19 @@
-class Product(links)
+function Product(links) {
   this.$links = links;
-  this.$add_to_cart = links.first();
-end
+};
 
-Link.prototype.bindEvents = function() {
-  var _this = this;
+Product.prototype.bindEvents = function() {
   this.$links.click(function(event){
     event.preventDefault();
-    debugger;
     $.ajax({
     type : 'patch',
     dataType : 'json',
-    url : 'add_to_cart',
+    url : '/products/' + $(this).data('id') + '/add_to_cart',
     success : function(response) {
-      _this.createDataList(response);
+
+    },
+    error: function(response) {
+
     }
   });
   });
@@ -21,7 +21,7 @@ Link.prototype.bindEvents = function() {
 };
 
 
-$(document).ready(function() {
+$(function() {
   var productLinks = new Product($(".add_to_cart"));
   productLinks.bindEvents();
 });

@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     render json: {
       html: render_to_string(
         template: 'products/add_to_cart.js.erb')
-    }
+    }, status: 400
   end
 
   def show

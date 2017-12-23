@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20171222070512) do
     t.string "username"
     t.string "email"
     t.string "password"
-    t.boolean "super_admin"
-    t.boolean "admin"
+    t.boolean "admin", default: false
+    t.boolean "super_admin", default: false
   end
 
   add_foreign_key "carts", "users"
