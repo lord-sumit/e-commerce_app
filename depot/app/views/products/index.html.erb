@@ -1,4 +1,7 @@
-javascript_include_tag "add_to_cart"
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "products/add_to_cart" %>
+<% end %>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <img src="ecommerce_logo.png" class="col-md-2 m-1 p-0">
   <span class = "col-md-2 m-1 p-0"><%= link_to 'New Product', new_product_path
