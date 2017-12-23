@@ -1,5 +1,5 @@
 <p class="font-weight-bold h4 col-4 offset-4">Enter the products details</p>
-<%= form_for @product,as: :product, url: products_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4 bg-info text-warning" }, { multipart: true }, local: true do |form| %>
+<%= form_for @product,as: :product, url: products_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4 bg-info text-warning", multipart: true }, local: true do |form| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -37,7 +37,10 @@
     <p class="h5 font-weight-bold"><%= form.label :Description %><br></p>
     <%= form.text_field :description %>
   </p>
-
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Image %><br></p>
+    <%= form.file_field :image %>
+  </p>
   <p>
     <%= form.submit %>
   </p>

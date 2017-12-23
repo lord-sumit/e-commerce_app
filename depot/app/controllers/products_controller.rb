@@ -5,6 +5,9 @@ class ProductsController < ApplicationController
   def remove_from_cart
     carts = current_user.carts.find_by(completed: 'false')
     line_item = carts.line_items.find_by(product_id: params[:product_id])
+    respond_to do |format|
+      format.json { render json: carts }
+    end
     if line_item.quantity > 1
       line_item.update quantity: line_item.quantity - 1
     else
@@ -23,9 +26,10 @@ class ProductsController < ApplicationController
     cart = current_user.carts.find_or_create_by(completed: false)
     line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
     line_item.update quantity: line_item.quantity + 1
-    # respond_to do |format|
-    #   format.json { render json: @add_to_cart }
-    # end
+    render json: {
+      html: render_to_string(
+        template: 'products/add_to_cart.js.erb')
+    }
   end
 
   def show
@@ -64,7 +68,7 @@ class ProductsController < ApplicationController
   private
     def product_params
       params.require(:product).
-        permit(:name, :color, :price, :discount, :description)
+        permit(:name, :color, :price, :discount, :description, :image)
     end
 
     def validate_admin
