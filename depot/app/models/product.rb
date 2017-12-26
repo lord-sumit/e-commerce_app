@@ -8,4 +8,12 @@ class Product < ApplicationRecord
 
   #Associations
   has_many :line_items, inverse_of: :product
+
+
+
+  def update_rating(user_rating)
+    self.rating = (( rating * rating_factor ) + user_rating.to_i ) / ( rating_factor + 1)
+    update(rating: rating.round(2), rating_factor: rating_factor + 1 )
+    rating
+  end
 end

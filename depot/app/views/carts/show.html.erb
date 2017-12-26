@@ -1,30 +1,28 @@
-<% carts.each do |cart_id| %>
-  <% cart_id.line_items.select("id") do |product| %>
-    <p>
-      <p class="h5 font-weight-bold">Name<br>
-      </p>
-      <%= product.name %>
-    </p>
-    <p>
-      <p class="h5 font-weight-bold">Color<br>
-      </p>
-      <%= product.color %>
-    </p>
-    <p>
-      <p class="h5 font-weight-bold">Price<br>
-      </p>
-      <%= product.price %>
-    </p>
-    <p>
-      <p class="h5 font-weight-bold">Discount<br>
-      </p>
-      <%= product.discount %>
-    </p>
-    <p>
-      <p class="h5 font-weight-bold">Description<br>
-      </p>
-      <%= product.description %>
-    </p>
-  <% end %>
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "carts/update_quantity" %>
 <% end %>
+<p>Cart Products</p>
+<%= product = Product.find_by_id(@cart.line_items.first.product_id) %>
+<table>
+  <tr>
+    <th>Product Name</th>
+    <th>Price</th>
+    <th>discount</th>
+    <th>total price</th>
+    <th>quantity</th>
+  </tr>
+  <% @cart.line_items.each do |line_item| %>
+    total_price = line_item.calculate_total_price
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><%= product.discount %></td>
+      <td><%= text_field(:line_item, :quantity, size: 1, class: "quantity", data: { id: @cart.id, line_item_id: line_item.id}) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <th>total</th>
+    <td></td>
+  </tr>
+</table>
 <%= link_to "Back", products_path %>

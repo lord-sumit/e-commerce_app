@@ -1,6 +1,11 @@
 class ProductsController < ApplicationController
   before_action :validate_admin, except: [:show, :index, :add_to_cart]
+  before_action :load_product, only: [:show, :edit, :update,
+                                      :destroy, :update_rating]
 
+  def update_rating
+    render json: { updated_rating: @product.update_rating(params[:rating]) }, status: 200
+  end
 
   def remove_from_cart
     carts = current_user.carts.find_by(completed: 'false')
@@ -23,17 +28,18 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
+
     cart = current_user.carts.find_or_create_by(completed: false)
     line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
     line_item.update quantity: line_item.quantity + 1
     render json: {
       html: render_to_string(
         template: 'products/add_to_cart.js.erb')
-    }, status: 400
+    }
   end
 
   def show
-    @product = Product.find(params[:id])
+
   end
 
   def new
@@ -41,7 +47,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
+
   end
 
   def create
@@ -51,7 +57,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find_by(params[:id])
     if @product.update(product_params)
       redirect_to @product
     else
@@ -60,8 +65,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    product = Product.find(params[:id])
-    product.destroy
+    @product.destroy
     redirect_to products_path
   end
 
@@ -77,4 +81,13 @@ class ProductsController < ApplicationController
       end
     end
 
+    def load_product
+      @product = Product.find_by_id(params[:product_id])
+      unless @product
+        respond_to do |format|
+          format.json { render json: { message: "no such product found" }, status: 404 }
+          format.html { redirect_to products_path }
+        end
+      end
+    end
 end

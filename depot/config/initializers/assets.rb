@@ -10,8 +10,9 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += %w(
   products/add_to_cart.js
+  products/update_rating.js
+  carts/update_quantity.js
 )
-
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
