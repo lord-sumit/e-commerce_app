@@ -2,7 +2,6 @@
   <%= javascript_include_tag "carts/update_quantity" %>
 <% end %>
 <p>Cart Products</p>
-<%= product = Product.find_by_id(@cart.line_items.first.product_id) %>
 <table>
   <tr>
     <th>Product Name</th>
@@ -12,12 +11,14 @@
     <th>quantity</th>
   </tr>
   <% @cart.line_items.each do |line_item| %>
-    total_price = line_item.calculate_total_price
+    <%= product = Product.find_by_id(line_item.product_id) %>
+    <%= total_price = line_item.calculate_total_price %>
     <tr>
       <td><%= product.name %></td>
       <td><%= product.price %></td>
       <td><%= product.discount %></td>
-      <td><%= text_field(:line_item, :quantity, size: 1, class: "quantity", data: { id: @cart.id, line_item_id: line_item.id}) %></td>
+      <td data-id=<%= "totalprice-#{ line_item.id }" %> ><%= total_price %></td>
+      <td><%= text_field(:line_item, :quantity, size: 1, class: "quantity", data: { id: @cart.id, lineitemid: line_item.id}) %></td>
     </tr>
   <% end %>
   <tr>

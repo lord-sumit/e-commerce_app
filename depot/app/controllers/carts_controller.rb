@@ -5,8 +5,9 @@ class CartsController < ApplicationController
   end
 
   def update_quantity
-    debugger
-    render json: { updated_total_price: @line_item.calculate_total_price }, status: 200
+    line_item = LineItem.find_by_id(params[:line_item].to_i)
+    line_item.update quantity: params[:quantity].to_i
+    render json: { updated_total_price: line_item.calculate_total_price }, status: 200
   end
 
 end
