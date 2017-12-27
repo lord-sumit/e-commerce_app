@@ -1,6 +1,5 @@
-<h1>Edit user</h1>
-<%= form_with(model: @user) do |form| %>
-
+<p class="font-weight-bold h1">Edit user</p>
+<%= form_with scope: :user, url: user_path(@user), local: true do |form| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -14,32 +13,24 @@
       </ul>
     </div>
   <% end %>
-
   <p>
-    <p class="h6 font-weight-bold "><%= form.label :UserName %><br></p>
-    <%= form.text_field :username, :value => @user.username%>
+    <p class="h6 font-weight-bold "><%= form.label :UserName %><br>
+    </p>
+    <%= form.text_field :username, :value => @user.username %>
   </p>
   <p>
-    <p class="h5 font-weight-bold"><%= form.label :Email %><br></p>
-    <%= form.text_field :email, :value => @user.email%>
-  </p>
-
-  <p>
-    <p class="h5 font-weight-bold"><%= form.label :Password %><br></p>
-    <%= form.text_field :password, :value =>  @user.password%>
+    <p class="h5 font-weight-bold"><%= form.label :Email %><br>
+    </p>
+    <%= form.text_field :email, :value => @user.email %>
   </p>
   <p>
-    <p class="h6 font-weight-bold "><%= form.label :Admin %><br></p>
-    <%= form.check_box :admin, :value => @user.admin%>
-  </p>
-  <p>
-    <p class="h6 font-weight-bold "><%= form.label :SuperAdmin %><br></p>
-    <%= form.check_box :super_admin, :value => @user.super_admin%>
+    <p class="h5 font-weight-bold"><%= form.label :Password %><br>
+    </p>
+    <%= form.text_field :password, :value => @user.password %>
   </p>
   <p>
     <%= form.submit %>
   </p>
-
 <% end %>
 
 <%= link_to 'Back', users_path %>

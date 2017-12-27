@@ -1,3 +1,36 @@
 <p class="font-weight-bold h1">New User</p>
-<%= render 'form' %>
+<%= form_with scope: :user, url: users_path, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <p class="h6 font-weight-bold "><%= form.label :UserName %><br>
+    </p>
+    <%= form.text_field :username, :value => @user.username %>
+  </p>
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Email %><br>
+    </p>
+    <%= form.text_field :email, :value => @user.email %>
+  </p>
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Password %><br>
+    </p>
+    <%= form.text_field :password, :value => @user.password %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
 <%= link_to 'Back', users_path %>
