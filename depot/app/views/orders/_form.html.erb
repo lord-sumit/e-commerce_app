@@ -1,0 +1,32 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "orders/add_address" %>
+  <%= javascript_include_tag  "nested_form" %>
+<% end %>
+<p>Order</p>
+<div class="width:100px">
+<% @current_user.addresses.each do |adres|%>
+    <%= adres.name %>
+    <%= adres.mobile_no %>
+    <%= adres.house_no %>
+    <%= adres.street %>
+    <%= adres.landmark %>
+    <%= adres.city %>
+    <%= adres.state %>
+    <button>deliver to this</button>
+<% end %>
+</div>
+<%= nested_form_for @order, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4 bg-info text-warning", multipart: true }, local: true do |form| %>
+  <p class="h5 font-weight-bold mb-0 mt-2"><%= form.label :Payment_type %></p>
+  <%= form.text_field :payment_type %>
+  <%= form.fields_for :addresses do |adres| %>
+    <p class="h5 font-weight-bold mb-0 mt-2"><%= adres.label :Name %><br></p>
+    <%= adres.text_field :name %>
+
+    <%= adres.link_to_remove "Remove this task" %>
+  <% end %>
+  <p><%= form.link_to_add "Add a address", :addresses %></p>
+  <div class="actions mt-2">
+    <%= form.submit %>
+  </div>
+<% end %>
+

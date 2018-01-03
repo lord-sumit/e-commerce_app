@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
+<%= form_for @cart,as: :cart, url: products_path, html: { class: "col-4 offset-4 border border-primary pl-4 pt-4 bg-info text-warning", multipart: true }, local: true do |form| %>
+
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Name %><br></p>
+    <%= form.text_field :name, :value => "email"%>
+  </p>
+
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Color %><br></p>
+    <%= form.text_field :color %>
+  </p>
+
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Price %><br></p>
+    <%= form.text_field :price %>
+  </p>
+
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Discount %><br></p>
+    <%= form.text_field :discount %>
+  </p>
+
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Description %><br></p>
+    <%= form.text_field :description %>
+  </p>
+  <p>
+    <p class="h5 font-weight-bold"><%= form.label :Image %><br></p>
+    <%= form.file_field :image %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+

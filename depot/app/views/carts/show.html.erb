@@ -26,4 +26,11 @@
     <td></td>
   </tr>
 </table>
-<%= link_to "Back", products_path %>
+<div class="row">
+  <div class="column md-1">
+    <%= link_to "Back", products_path %>
+  </div>
+  <div class="column md-1 offset-md-5">
+    <%= link_to "proceed to checkout", new_order_path %>
+  </div>
+</div>
