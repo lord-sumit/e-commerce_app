@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 ruby '2.4.1'
+gem 'stripe'
 gem "nested_form"
 gem 'paperclip', '~> 5.1'
 gem 'devise'

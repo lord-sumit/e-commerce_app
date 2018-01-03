@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources 'carts', only: [:show] do
     patch 'update_quantity'
   end
+  resources :charges
   resources 'orders' do
     patch 'checkout'
     patch 'add_address'
