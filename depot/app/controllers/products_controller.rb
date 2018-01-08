@@ -28,11 +28,9 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    product = Product.find(params[:product_id])
     cart = current_user.carts.find_or_create_by(completed: false)
     line_item = cart.line_items.find_or_create_by(product_id: params[:product_id])
-    line_item.update quantity: line_item.quantity + 1, price: product.price,
-                      discount: product.discount
+    line_item.update quantity: line_item.quantity + 1
     render json: {
       html: render_to_string(
         template: 'products/add_to_cart.js.erb')

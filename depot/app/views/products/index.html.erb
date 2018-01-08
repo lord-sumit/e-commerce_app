@@ -10,7 +10,6 @@
    %></span>
   <button class="btn btn-outline-success col-md-1 offset-md-13 m-1 p-0" type="button">Login</button>
   <span id="cart_elements" class = "col-md-2 offset-md-14 m-1 p-0 pl-5">0</span>
-  <button class="btn btn-outline-success col-md-1 offset-md-15 m-1 p-0" ><%= link_to 'Cart', cart_path((@current_user.carts.find_by_completed(false)).id) %></button>
 </nav>
 <p>All Products</p>
 <table>
@@ -35,10 +34,9 @@
       <td><%= link_to 'Destroy', product_path(product),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
-      <td class="abc"><%= link_to 'Add_To_Cart', product_add_to_cart_path(product), data: {id: product.id}, class: "add_to_cart" %></td>
+      <td class="abc"><%= link_to 'Add_To_Cart', product_add_to_cart_path(product),data: {id: product.id}, class: "add_to_cart" %></td>
       <td><%= link_to 'Remove_From_Cart', product_remove_from_cart_path(product)      , remote: true, class:"a", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <td><%= select_tag "rating", options_for_select(["0","1","2","3","4","5"]), class: "rating", data: { id: product.id} %></td>
+      <td ><%= select_tag "rating", options_for_select(["0","1","2","3","4","5"]), class: "rating", data: { id: product.id} %></td>
     </tr>
-
   <% end %>
 </table>

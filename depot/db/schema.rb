@@ -10,28 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180101131646) do
-
-  create_table "addresses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "name"
-    t.integer "mobile_no"
-    t.text "house_no"
-    t.text "street"
-    t.text "landmark"
-    t.text "city"
-    t.text "state"
-    t.bigint "order_id"
-    t.bigint "user_id"
-    t.index ["order_id"], name: "index_addresses_on_order_id"
-    t.index ["user_id"], name: "index_addresses_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 20171224053730) do
 
   create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean "completed", default: false
     t.bigint "user_id"
-    t.float "total", limit: 24, default: 0.0
-    t.bigint "order_id"
-    t.index ["order_id"], name: "index_carts_on_order_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -43,12 +26,6 @@ ActiveRecord::Schema.define(version: 20180101131646) do
     t.integer "quantity", default: 0
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
-  end
-
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "payment_type"
   end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -73,9 +50,6 @@ ActiveRecord::Schema.define(version: 20180101131646) do
     t.boolean "admin"
   end
 
-  add_foreign_key "addresses", "orders"
-  add_foreign_key "addresses", "users"
-  add_foreign_key "carts", "orders"
   add_foreign_key "carts", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "products"

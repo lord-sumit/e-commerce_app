@@ -6,10 +6,4 @@ class LineItem < ApplicationRecord
   #Associations
   belongs_to :cart
   belongs_to :product
-
-  def calculate_total_price
-    ( price - discount ) * quantity
-  end
-
 end
-
