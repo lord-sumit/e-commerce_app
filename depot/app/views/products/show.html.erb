@@ -22,4 +22,9 @@
   <p class="h5 font-weight-bold">Description<br></p>
   <%= @product.description %>
 </p>
+<p>
+  <p class="h5 font-weight-bold">Image<br></p>
+  <%= image_tag @product.image.url %>
+</p>
+
 <%= link_to "Back", products_path %>
