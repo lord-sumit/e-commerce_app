@@ -15,21 +15,21 @@
       </ul>
     </div>
   <% end %>
-
   <p class="h4 font-weight-bold">Login</p>
   <p>
-    <p class="h6 font-weight-bold "><%= form.label :Email %><br></p>
+    <p class="h6 font-weight-bold "><%= form.label :Email %><br>
+    </p>
     <%= form.text_field :email, :value => "email"%>
   </p>
   <p>
-    <p class="h6 font-weight-bold"><%= form.label :Password %><br></p>
+    <p class="h6 font-weight-bold"><%= form.label :Password %><br>
+    </p>
     <%= form.text_field :password %>
   </p>
   <p>
     <%= form.submit "Login",:class => "p-3 mb-2 bg-success text-white"%>
   </p>
 <% end %>
-
 <p class="col-4 offset-5">
   <p class="h6 font-weight-bold">New to Depot?</p>
   <%= link_to '<button type="button" class="btn btn-danger btn-lg">Sign up</button>'.html_safe, new_user_path %>
